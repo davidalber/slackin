@@ -1,13 +1,12 @@
-FROM octohost/nodejs
-
-ENV PORT 3000
+FROM node:6.3.0-slim
 
 ADD . /srv/www
-
 WORKDIR /srv/www
 
 RUN npm install --unsafe-perm
 
-EXPOSE 3000
+ENV PORT 3000
 
-CMD ./bin/slackin --coc "$SLACK_COC" --channels "$SLACK_CHANNELS" --port $PORT $SLACK_SUBDOMAIN $SLACK_API_TOKEN
+EXPOSE $PORT
+
+CMD ./bin/slackin --coc "$SLACK_COC" --port $PORT $SLACK_SUBDOMAIN $SLACK_API_TOKEN
